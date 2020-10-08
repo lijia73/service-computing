@@ -147,7 +147,8 @@ func readAndWrite() error {
 			return err
 		}
 		defer output.Close()
-		cmd.Stdout = os.Stdout
+        cmd.Stdout = os.Stdout
+        cmd.Stderr = os.Stderr
 		if err := cmd.Start(); err != nil {
 			return err
 		}
