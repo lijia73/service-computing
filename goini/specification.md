@@ -43,7 +43,7 @@ func (e *myError) Error() string {
 自定义错误信息
 ![](./img/6.png)
 
-#### `Watch(filename,listener) (configuration, error)`
+#### Watch(filename,listener) (configuration, error)
 主要使用的是`Watch`函数,该函数接收文件名以及`listener`接口作为参数，返回key-value式样的配置解析结果与自定义错误。其功能为监听自函数运行以来发生的一次配置文件变化并返回最新的配置文件解析内容。
 
 ```go
@@ -61,7 +61,7 @@ func Watch(filename string,listener Listener) (configuration, error){
 	return result,err
 }
 ```
-#### `listener`
+#### listener
 类型`ListenFunc`实现了接口`Listener`的方法`listen`——通过监控文件状态数据中的修改时间的变化来判断文件是否被修改
 ```go
 type Listener interface  { listen(inifile string)  }
