@@ -31,13 +31,13 @@
 ```go
 //自定义一个错误类型
 type myError struct {
-	value float64
+	etime time.Time
 	info  string
 }
  
 //实现error接口
 func (e *myError) Error() string {
-	return fmt.Sprintf("value %f : %s", e.value,e.info )
+	return fmt.Sprintf("time %s : %s",e.etime.Format("2006-01-02 15:04:05"),e.info)
 }
 ```
 自定义错误信息
@@ -209,12 +209,12 @@ func main() {
 	}
 	go add(os.Args[1],os.Args[2])//注释这一行则超时，必须配置文件变化才返回最新的配置文件解析内容
 	conf,err:=goini.Watch(os.Args[1],mylistener)
+	goini.CheckErr(err)
 	for _, v := range conf {
 		for key,value := range v{
 			fmt.Printf("%s : %s\n", key ,value)
 		}
 	}
-	goini.CheckErr(err)
 }
 ```
 编译并安装
