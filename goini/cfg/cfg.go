@@ -25,10 +25,10 @@ func main() {
 	}
 	go add(os.Args[1],os.Args[2])
 	conf,err:=goini.Watch(os.Args[1],mylistener)
-	goini.CheckErr(err)
 	for _, v := range conf {
 		for key,value := range v{
 			fmt.Printf("%s : %s\n", key ,value)
 		}
 	}
+	goini.CheckErr(err)
 }

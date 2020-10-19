@@ -43,6 +43,34 @@ func (e *myError) Error() string {
 自定义错误信息
 ![](./img/6.png)
 
+#### 使有 init 函数，使得 Unix 系统默认采用 # 作为注释行，Windows 系统默认采用 ; 作为注释行。
+```go
+func init() {
+	sysType := runtime.GOOS
+    if sysType == "linux" {
+       anno="#"
+    } 
+    if sysType == "windows" {
+       anno=";"
+    }
+}
+```
+尝试将用于测试的配置文件的一个注释由
+`; possible values = production/development`
+改为
+`\# possible values = production/development`
+产生错误信息
+```
+--- FAIL: TestWatch (0.00s)
+    E:\Workplace\go\src\github.com\user\goini\configure_test.go:42: expected [map[app_mode:development] map[data:/home/git/grafana] map[enforce_domain:true http_port:9999 protocol:http]] but got [map[# possible values:production/development app_mode:development] map[data:/home/git/grafana] map[enforce_domain:true http_port:9999 protocol:http]]
+FAIL
+FAIL	github.com/user/goini	0.199s
+FAIL
+```
+证明此功能实现成功
+后面内容中对Watch函数的单元测试中的
+`write.WriteString("\r\n"+anno+"a=b")`
+也能体现对此功能的测试
 #### Watch(filename,listener) (configuration, error)
 主要使用的是`Watch`函数,该函数接收文件名以及`listener`接口作为参数，返回key-value式样的配置解析结果与自定义错误。其功能为监听自函数运行以来发生的一次配置文件变化并返回最新的配置文件解析内容。
 
@@ -95,22 +123,22 @@ func (l ListenFunc) listen(inifile string){
 ## 单元或集成测试结果
 用于测试的配置文件
 ```ini
-# possible values : production, development
+; possible values = production/development
 app_mode = development
 
 [paths]
-# Path to where grafana can store temp files, sessions, and the sqlite3 db (if that is used)
+; Path to where grafana can store temp files, sessions, and the sqlite3 db (if that is used)
 data = /home/git/grafana
 
 [server]
-# Protocol (http or https)
+; Protocol (http or https)
 protocol = http
 
-# The http port  to use
+; The http port  to use
 http_port = 9999
 
-# Redirect to correct domain if host header does not match domain
-# Prevents DNS rebinding attacks
+; Redirect to correct domain if host header does not match domain
+; Prevents DNS rebinding attacks
 enforce_domain = true
 ```
 
@@ -128,7 +156,7 @@ func TestWatch(t *testing.T) {
 		}
 		defer file.Close()
 		write := bufio.NewWriter(file)
-		write.WriteString("\r\n#注释")//加入一行注释
+		write.WriteString("\r\n"+anno+"a=b")//加入一行注释
 		write.Flush()
 	}
 	go change(filepath)//注释这一行则超时，必须配置文件变化才返回最新的配置文件解析内容
@@ -165,7 +193,7 @@ func ExampleWatch() {
 		}
 		defer file.Close()
 		write := bufio.NewWriter(file)
-		write.WriteString("\r\n#注释")//加入一行注释
+		write.WriteString("\r\n"+anno+"a=b")//加入一行注释
 		write.Flush()
 	}
 	var mylistener ListenFunc =func (inifile string){
@@ -231,3 +259,8 @@ go install
 #### test3
 ![](./img/5.png)
 可以看到新加入的 anothername = anothervalue 行已成功解析
+
+## 生成的中文 api 文档
+```
+go doc
+```

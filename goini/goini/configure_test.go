@@ -19,7 +19,7 @@ func TestWatch(t *testing.T) {
 		//及时关闭file句柄
 		defer file.Close()
 		write := bufio.NewWriter(file)
-		write.WriteString("\r\n#注释")
+		write.WriteString("\r\n"+anno+"a=b")
 		write.Flush()
 	}
 	go change(filepath)
@@ -53,7 +53,7 @@ func ExampleWatch() {
 		//及时关闭file句柄
 		defer file.Close()
 		write := bufio.NewWriter(file)
-		write.WriteString("\r\n#注释")
+		write.WriteString("\r\n"+anno+"a=b")
 		write.Flush()
 	}
 	var mylistener ListenFunc =func (inifile string){

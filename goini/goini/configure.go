@@ -8,7 +8,10 @@ import (
 	"strings"
 	"fmt"
 	"time"
+	"runtime"
 )
+
+var anno string
 
 //自定义一个错误类型
 type myError struct {
@@ -26,6 +29,16 @@ var (
     fi os.FileInfo
     err error
 )
+
+func init() {
+	sysType := runtime.GOOS
+    if sysType == "linux" {
+       anno="#"
+    } 
+    if sysType == "windows" {
+       anno=";"
+    }
+}
 
 type Listener interface  { listen(inifile string)  }
 
@@ -111,7 +124,7 @@ func (c *Config) Analyse() error {
 		}
 		switch {
 		case len(line) == 0:
-		case string(line[0]) == "#":
+		case string(line[0]) == anno:
 		case line[0] == '[' && line[len(line)-1] == ']':
 			section = strings.TrimSpace(line[1 : len(line)-1])
 			data = make(map[string]map[string]string)

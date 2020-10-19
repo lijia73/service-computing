@@ -180,7 +180,7 @@
 		
 			
 			
-			<h2 id="CheckErr">func <a href="http://localhost:6060/src/github.com/user/goini/configure.go?s=3324:3348#L125">CheckErr</a>
+			<h2 id="CheckErr">func <a href="http://localhost:6060/src/github.com/user/goini/configure.go?s=3511:3535#L138">CheckErr</a>
 				<a class="permalink" href="http://localhost:6060/pkg/github.com/user/goini/#CheckErr">¶</a>
 				
 				
@@ -196,7 +196,7 @@
 		
 			
 			
-			<h2 id="Watch">func <a href="http://localhost:6060/src/github.com/user/goini/configure.go?s=1344:1412#L51">Watch</a>
+			<h2 id="Watch">func <a href="http://localhost:6060/src/github.com/user/goini/configure.go?s=1530:1598#L64">Watch</a>
 				<a class="permalink" href="http://localhost:6060/pkg/github.com/user/goini/#Watch">¶</a>
 				
 				
@@ -225,7 +225,7 @@ var change = func(filepath string) {
     <span class="comment">//及时关闭file句柄</span>
     defer file.Close()
     write := bufio.NewWriter(file)
-    write.WriteString("\r\n#注释")
+    write.WriteString("\r\n" + anno + "a=b")
     write.Flush()
 }
 var mylistener ListenFunc = func(inifile string) {
@@ -258,7 +258,7 @@ enforce_domain : true
 		
 			
 			
-			<h2 id="Config">type <a href="http://localhost:6060/src/github.com/user/goini/configure.go?s=1808:1963#L64">Config</a>
+			<h2 id="Config">type <a href="http://localhost:6060/src/github.com/user/goini/configure.go?s=1994:2149#L77">Config</a>
 				<a class="permalink" href="http://localhost:6060/pkg/github.com/user/goini/#Config">¶</a>
 				
 				
@@ -279,7 +279,7 @@ enforce_domain : true
 
 			
 				
-				<h3 id="GetConfig">func <a href="http://localhost:6060/src/github.com/user/goini/configure.go?s=2007:2046#L70">GetConfig</a>
+				<h3 id="GetConfig">func <a href="http://localhost:6060/src/github.com/user/goini/configure.go?s=2193:2232#L83">GetConfig</a>
 					<a class="permalink" href="http://localhost:6060/pkg/github.com/user/goini/#GetConfig">¶</a>
 					
 					
@@ -295,7 +295,7 @@ enforce_domain : true
 
 			
 				
-				<h3 id="Config.Analyse">func (*Config) <a href="http://localhost:6060/src/github.com/user/goini/configure.go?s=2148:2180#L78">Analyse</a>
+				<h3 id="Config.Analyse">func (*Config) <a href="http://localhost:6060/src/github.com/user/goini/configure.go?s=2334:2366#L91">Analyse</a>
 					<a class="permalink" href="http://localhost:6060/pkg/github.com/user/goini/#Config.Analyse">¶</a>
 					
 					
@@ -312,7 +312,7 @@ enforce_domain : true
 		
 			
 			
-			<h2 id="ListenFunc">type <a href="http://localhost:6060/src/github.com/user/goini/configure.go?s=455:483#L22">ListenFunc</a>
+			<h2 id="ListenFunc">type <a href="http://localhost:6060/src/github.com/user/goini/configure.go?s=641:669#L35">ListenFunc</a>
 				<a class="permalink" href="http://localhost:6060/pkg/github.com/user/goini/#ListenFunc">¶</a>
 				
 				
@@ -334,7 +334,7 @@ enforce_domain : true
 		
 			
 			
-			<h2 id="Listener">type <a href="http://localhost:6060/src/github.com/user/goini/configure.go?s=399:451#L20">Listener</a>
+			<h2 id="Listener">type <a href="http://localhost:6060/src/github.com/user/goini/configure.go?s=585:637#L33">Listener</a>
 				<a class="permalink" href="http://localhost:6060/pkg/github.com/user/goini/#Listener">¶</a>
 				
 				
