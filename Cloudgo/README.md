@@ -206,14 +206,14 @@ func apiTableHandler(formatter *render.Render) http.HandlerFunc {
 ## 测试
 ### curl
 #### 支持静态文件服务
-`curl -v http://localhost:9090/`
-![](https://gitee.com/li-jia666/service-computing/raw/master/Cloudgo/img/11.png)
+`curl -v http://localhost:9090/`                      
+![](https://gitee.com/li-jia666/service-computing/raw/master/Cloudgo/img/11.png)       
 #### 支持简单 js 访问
-`curl -v http://localhost:9090/api/test`
-![](https://gitee.com/li-jia666/service-computing/raw/master/Cloudgo/img/12.png)
+`curl -v http://localhost:9090/api/test`                       
+![](https://gitee.com/li-jia666/service-computing/raw/master/Cloudgo/img/12.png)          
 #### 提交表单，并输出一个表格（必须使用模板）
-`curl -v -d "username=sysu;password=123" http://localhost:9090/table`
-![](https://gitee.com/li-jia666/service-computing/raw/master/Cloudgo/img/13.png)
+`curl -v -d "username=sysu;password=123" http://localhost:9090/table`                           
+![](https://gitee.com/li-jia666/service-computing/raw/master/Cloudgo/img/13.png)               
 ### ab
 #### 支持静态文件服务
 ab -n 1000 -c 100 http://localhost:9090/
