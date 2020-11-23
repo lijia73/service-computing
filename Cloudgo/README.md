@@ -1,6 +1,6 @@
 # 开发 web 服务程序
 ## 概述
-开发简单 web 服务程序 cloudgo，了解 web 服务器工作原理。
+开发简单 web 服务程序 cloudgo，了解 web 服务器工作原理。    
 **任务目标**
 1. 熟悉 go 服务器工作原理
 2. 基于现有 web 库，编写一个简单 web 应用类似 cloudgo。
@@ -15,7 +15,7 @@
 2. 使用 curl 测试，将测试结果写入 README.md
 3. 使用 ab 测试，将测试结果写入 README.md。并解释重要参数。
 
-**扩展要求**
+**扩展要求**     
 选择以下一个或多个任务，以博客的形式提交。
 1. 通过源码分析、解释一些关键功能实现
 2. 选择简单的库，如 mux 等，通过源码分析、解释它是如何实现扩展的原理，包括一些 golang 程序设计技巧。
@@ -33,7 +33,7 @@ github.com/gorilla/mux
 github.com/unrolled/render
 ```
 ### 使用的库说明
-1. net/http
+1. net/http      
 http包提供 HTTP 客户端和服务器实现。       
 包括三个关键类型：    
    - Handler接口：所有请求的处理器、路由ServeMux都满足该接口。
@@ -54,17 +54,17 @@ http包提供 HTTP 客户端和服务器实现。
   	}
     ```
 
-2. negroni
+2. negroni                
 在 Go 语言里，Negroni 是一个很地道的 Web 中间件，它是一个具备微型、非嵌入式、鼓励使用原生 net/http 库特征的中间件。            
    - `negroni.Classic()`提供一些默认的中间件，这些中间件在多数应用都很有用。       
    - 得益于`negroni.Handler`这个接口，Negroni 提供双向的中间件机制。       
 [negroni-github](https://github.com/urfave/negroni/blob/master/translations/README_zh_CN.md)
 
-3. mux
+3. mux                  
 实现了一个请求路由和分发的 Go 框架。       
 `mux.Router`根据已注册路由列表匹配传入请求，并调用与URL或其他条件匹配的路由的处理程序。
 [Golang 第三方库学习 · mux](https://www.imooc.com/article/45868)
-4. render
+4. render        
 一个软件包，提供了轻松呈现JSON，XML，文本，二进制数据和HTML模板的功能。       
 [render-github](https://github.com/unrolled/render)
 ## 运行说明
@@ -83,7 +83,7 @@ Go 的`net/http`包中提供了静态文件的服务，`ServeFile`和`FileServer
     - `mx.PathPrefix`添加前缀路径路由。 
 
 ### 支持js访问
-**后端部分**
+**后端部分**                      
 添加服务：`apitest.go`
 ```go
 package service
@@ -104,7 +104,7 @@ func apiTestHandler(formatter *render.Render) http.HandlerFunc {
 	}
 }
 ```
-**前端部分**
+**前端部分**                          
 描述页面结构：`index.html`
 ```html
 <html>
@@ -123,7 +123,7 @@ func apiTestHandler(formatter *render.Render) http.HandlerFunc {
 </body>
 </html>
 ```
-定义页面行为：`hello.js`
+定义页面行为：`hello.js`                         
 ```js
 $(document).ready(function() {
     $.ajax({
@@ -195,25 +195,25 @@ func apiTableHandler(formatter *render.Render) http.HandlerFunc {
 
 ## 效果展示
 ### 支持静态文件服务
-![](img\1.png)
+![](.\img\1.png)
 ### 支持简单 js 访问
-![](img\2.png)
-![](img\5.png)
+![](.\img\2.png)
+![](.\img\5.png)
 ### 提交表单，并输出一个表格（必须使用模板）
-![](img\3.png)
-![](img\4.png)
+![](.\img\3.png)
+![](.\img\4.png)
 
 ## 测试
 ### curl
 #### 支持静态文件服务
 `curl -v http://localhost:9090/`
-![](img\11.png)
+![](.\img\11.png)
 #### 支持简单 js 访问
 `curl -v http://localhost:9090/api/test`
-![](img\12.png)
+![](.\img\12.png)
 #### 提交表单，并输出一个表格（必须使用模板）
 `curl -v -d "username=sysu;password=123" http://localhost:9090/table`
-![](img\13.png)
+![](.\img\13.png)
 ### ab
 #### 支持静态文件服务
 ab -n 1000 -c 100 http://localhost:9090/
@@ -404,41 +404,41 @@ Percentage of the requests served within a certain time (ms)
  ```
 #### 重要参数
 **命令参数**
-ab命令最基本的参数是-n和-c：
--n 执行的请求数量
--c 并发请求个数
+ab命令最基本的参数是-n和-c：              
+-n 执行的请求数量                     
+-c 并发请求个数                     
 
-其他参数：
--t 测试所进行的最大秒数
--p 包含了需要POST的数据的文件
--T POST数据所使用的Content-type头信息
--k 启用HTTP KeepAlive功能，即在一个HTTP会话中执行多个请求，默认时，不启用KeepAlive功能
+其他参数：                    
+-t 测试所进行的最大秒数                   
+-p 包含了需要POST的数据的文件                 
+-T POST数据所使用的Content-type头信息              
+-k 启用HTTP KeepAlive功能，即在一个HTTP会话中执行多个请求，默认时，不启用KeepAlive功能         
 
 **结果参数**
-Server Software: 服务器软件版本
-Server Hostname: 请求的URL
-Server Port: 请求的端口号
-Document Path: 请求的服务器的路径
-Document Length: 页面长度 单位是字节
-Concurrency Level: 并发数
-Time taken for tests: 一共使用了的时间
-Complete requests: 总共请求的次数
-Failed requests: 失败的请求次数
-Total transferred: 总共传输的字节数 http头信息
-HTML transferred: 实际页面传递的字节数
-Requests per second: 每秒多少个请求
-Time per request: 平均每个用户等待多长时间
-Time per request: 服务器平均用多长时间处理
-Transfer rate: 传输速率
-Connection Times: 传输时间统计
-Percentage of the requests served within a certain time: 确定时间内服务请求占总数的百分比
+Server Software: 服务器软件版本              
+Server Hostname: 请求的URL                    
+Server Port: 请求的端口号                    
+Document Path: 请求的服务器的路径                  
+Document Length: 页面长度 单位是字节                   
+Concurrency Level: 并发数                     
+Time taken for tests: 一共使用了的时间                   
+Complete requests: 总共请求的次数                 
+Failed requests: 失败的请求次数                                     
+Total transferred: 总共传输的字节数 http头信息                      
+HTML transferred: 实际页面传递的字节数                    
+Requests per second: 每秒多少个请求                     
+Time per request: 平均每个用户等待多长时间                     
+Time per request: 服务器平均用多长时间处理               
+Transfer rate: 传输速率                     
+Connection Times: 传输时间统计                 
+Percentage of the requests served within a certain time: 确定时间内服务请求占总数的百分比                 
 
 ## 源码分析
 `DefaultServeMux`与`gorilla/mux`对比阅读
 
 ### DefaultServeMux
-注册路由（DefautServeMux），即把一个模式（url）和对应的处理函数（handler）注册到DefautServeMux中。
-因为http包中已经内置了路由：`DefaultServeMux`，所以可以直接调用`http.HandleFunc`函数注册一个处理器函数（handler）和对应的模式（pattern）到`DefaultServeMux`中。（当然，也可以自定义一个路由器，如：mux := http.NewServeMux()）
+注册路由（DefautServeMux），即把一个模式（url）和对应的处理函数（handler）注册到DefautServeMux中。                  
+因为http包中已经内置了路由：`DefaultServeMux`，所以可以直接调用`http.HandleFunc`函数注册一个处理器函数（handler）和对应的模式（pattern）到`DefaultServeMux`中。（当然，也可以自定义一个路由器，如：mux := http.NewServeMux()）                   
 ```go
 func HandleFunc(pattern string, handler func(ResponseWriter, *Request)) {
     DefaultServeMux.HandleFunc(pattern, handler)
