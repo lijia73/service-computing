@@ -195,7 +195,7 @@ func apiTableHandler(formatter *render.Render) http.HandlerFunc {
 
 ## 效果展示
 ### 支持静态文件服务
-![](.\img\1.png)
+![](https://gitee.com/NFUNW172018051/ux/raw/master/img/1.png)
 ### 支持简单 js 访问
 ![](.\img\2.png)
 ![](.\img\5.png)
@@ -404,6 +404,7 @@ Percentage of the requests served within a certain time (ms)
  ```
 #### 重要参数
 **命令参数**
+
 ab命令最基本的参数是-n和-c：              
 -n 执行的请求数量                     
 -c 并发请求个数                     
@@ -415,6 +416,7 @@ ab命令最基本的参数是-n和-c：
 -k 启用HTTP KeepAlive功能，即在一个HTTP会话中执行多个请求，默认时，不启用KeepAlive功能         
 
 **结果参数**
+
 Server Software: 服务器软件版本              
 Server Hostname: 请求的URL                    
 Server Port: 请求的端口号                    
