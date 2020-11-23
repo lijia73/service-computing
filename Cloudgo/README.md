@@ -197,23 +197,23 @@ func apiTableHandler(formatter *render.Render) http.HandlerFunc {
 ### 支持静态文件服务
 ![](https://gitee.com/li-jia666/service-computing/raw/master/Cloudgo/img/1.png)
 ### 支持简单 js 访问
-![](.\img\2.png)
-![](.\img\5.png)
+![](https://gitee.com/li-jia666/service-computing/raw/master/Cloudgo/img/2.png)
+![](https://gitee.com/li-jia666/service-computing/raw/master/Cloudgo/img/5.png)
 ### 提交表单，并输出一个表格（必须使用模板）
-![](.\img\3.png)
-![](.\img\4.png)
+![](https://gitee.com/li-jia666/service-computing/raw/master/Cloudgo/img/3.png)
+![](https://gitee.com/li-jia666/service-computing/raw/master/Cloudgo/img/4.png)
 
 ## 测试
 ### curl
 #### 支持静态文件服务
 `curl -v http://localhost:9090/`
-![](.\img\11.png)
+![](https://gitee.com/li-jia666/service-computing/raw/master/Cloudgo/img/11.png)
 #### 支持简单 js 访问
 `curl -v http://localhost:9090/api/test`
-![](.\img\12.png)
+![](https://gitee.com/li-jia666/service-computing/raw/master/Cloudgo/img/12.png)
 #### 提交表单，并输出一个表格（必须使用模板）
 `curl -v -d "username=sysu;password=123" http://localhost:9090/table`
-![](.\img\13.png)
+![](https://gitee.com/li-jia666/service-computing/raw/master/Cloudgo/img/13.png)
 ### ab
 #### 支持静态文件服务
 ab -n 1000 -c 100 http://localhost:9090/
