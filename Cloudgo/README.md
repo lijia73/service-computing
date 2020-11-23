@@ -195,7 +195,7 @@ func apiTableHandler(formatter *render.Render) http.HandlerFunc {
 
 ## 效果展示
 ### 支持静态文件服务
-![](https://gitee.com/NFUNW172018051/ux/raw/master/img/1.png)
+![](https://gitee.com/li-jia666/service-computing/raw/master/Cloudgo/img/1.png)
 ### 支持简单 js 访问
 ![](.\img\2.png)
 ![](.\img\5.png)
