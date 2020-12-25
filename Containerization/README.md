@@ -5,10 +5,20 @@
 - Ubuntu 20.04 
 
 ## 实验内容
-[toc]
+
+- 准备Docker环境
+- 构建Docker镜像
+- MySQL与容器化
+- Docker Compose
+- Docker 网络
+	- 容器网络管理
+	- 自定义网络
+- Docker 仓库（Registry）
+	- 搭建私有容器仓库
+	- 阿里云容器镜像服务实践
 
 ## 准备知识
-### `Docker` 的核心概念
+### Docker的核心概念
 - `镜像`(image) – 类比`执行程序`  
 一个`可执行包`: 包含运行应用程序所需的一切——`代码`、`运行环境`、`库`、`环境变量`和`配置文件`  
 
@@ -27,31 +37,31 @@
 - `栈`（Stack）/ `命名空间`（Namaspace） / `应用`（Application）  
 被编排的、可伸缩的一组`相互依赖的服务`，构成的一个`应用`  
   
-
+https://gitee.com/li-jia666/service-computing/raw/master/Containerization/
 
 ## 实验过程
 
-### 准备docker环境
+### 准备Docker环境
 1. 检查Ubuntu的内核
 	docker需要ubuntu的内核是高于3.10
 
 	`uname -r`
 
-	![](.\img\1.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/1.png)
 
 2. 安装docker
 
 	` sudo apt-get install docker.io`
 
-	![](.\img\2.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/2.png)
 
 3. 查看版本
 
 	`docker --version`
 
-	![](.\img\3.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/3.png)
 
-### 构建docker镜像
+### 构建Docker镜像
 1. 编写 Dockerfile
 
 	以下是一个简单的镜像构建文件。
@@ -63,15 +73,15 @@
 
 	在该文件中，我们指明镜像基于`ubuntu:latest`镜像，镜像启动后运行`top -b -c`命令。其中，`ENTRYPOINT`描述了容器的入口点，这个入口点程序是容器的初始进程（PID 1），因此在退出后容器就会退出，这就规定了容器的生命周期和 top 命令一致。
 
-	![](.\img\4.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/4.png)
 
-	![](.\img\5.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/5.png)
 	
 	
 2. 构建镜像
    `docker build . -t hello`
 
-   ![](.\img\6.png)
+   ![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/6.png)
 
 
 3. 运行镜像
@@ -79,7 +89,7 @@
 
    其中，`-it`表示通过终端与进程（容器）交互，stdin，stdout，stderr定向到 TTY，`-rm`表示容器运行完毕后删除此容器。
 
-   ![](.\img\7.png)
+   ![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/7.png)
 
 ### MySQL与容器化
 
@@ -87,13 +97,13 @@
 	我们可执行以下命令运行一个 MySQL 容器，在命令中我们通过 -e 设置容器的环境变量参数，设定了 MySQL 数据库密码。
 	`docker run -p 3386:3306 --name testmysql -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7`
 
-	![](.\img\8.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/8.png)
 
 	显示运行中容器
 
 	`docker ps`
 
-	![](.\img\9.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/9.png)
 
 	结果中的`Up 51 seconds`表明容器已正常运行。
 
@@ -109,7 +119,7 @@
 	`docker volume create mydb`
 	`docker run --name testmysql -e MYSQL_ROOT_PASSWORD=123456 -v mydb:/var/lib/mysql -d mysql:5.7`
 
-	![](.\img\10.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/10.png)
 
 3. 启动客户端容器链接服务器
 
@@ -121,7 +131,7 @@
 
 	` mysql -hmysql -uroot -p123456`
 
-	![](.\img\11.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/11.png)
 
 ### Docker Compose 
 Docker Compose 是一个命令行工具，它允许你定义和编排多容器 Docker 应用。它使用 YAML 文件来配置应用服务，网络和卷。
@@ -136,7 +146,7 @@ Compose 通常被用来本地开发，单机应用部署，和自动测试。
 	验证安装成功:
 	`docker-compose --version`
 
-	![](.\img\12.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/12.png)
 
 2. 编写：`stack.yml`
 	`mkdir comptest && cd comptest`,`vi stack.yml`
@@ -159,22 +169,22 @@ services:
 ```
 
 3. 启动服务：`sudo docker-compose -f stack.yml up` 
-	![](.\img\13.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/13.png)
 
 	在成功运行上述命令后，我们即可在浏览器中访问`:8080`端口，进入 Adminer 管理页面。
 
-	![](.\img\14.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/14.png)
 
 	输入 MySQL 账户名和密码后，我们即可进入到数据库管理页面。
 
-	![](.\img\15.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/15.png)
 
 ### Docker 网络
 #### 容器网络管理
 1. 管理容器网络
 	`sudo docker network ls`
 
-	![](.\img\16.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/16.png)
 
    - 容器`默认`使用网络：`Docker0`（桥接）
    - 容器支持的网络与类型
@@ -191,30 +201,30 @@ services:
 	运行`ubuntu`容器:`sudo docker run --name unet -it --rm ubuntu bash`  
 
     - 更新容器：`apt-get update`  
-    ![](.\img\17.png)
+    ![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/17.png)
 	- 安装网络工具包`net-tools`：`apt-get install net-tools`  
-    ![](.\img\18.png)
+    ![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/18.png)
 	- 安装`ping`的依赖包：`apt-get install iputils-ping -y`  
-    ![](.\img\19.png)
+    ![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/19.png)
 	- `ifconfig`命令  
-    ![](.\img\20.png)
+    ![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/20.png)
 	- `ping`命令：`ping 172.17.0.3`  
-	![](.\img\21.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/21.png)
 	
 	
 	
 
 3. 启动另一个命令窗口，由容器制作镜像：`sudo docker commit unet ubuntu:net` 
-	![](.\img\22.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/22.png)
 
 	查看容器和镜像：
 
-	![](.\img\25.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/25.png)
 	
 4. 创建自定义网络：`sudo docker network create mynet`  
-	![](.\img\23.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/23.png)
 	再次查看网络`sudo docker network ls`，可以看到`mynet`这个自定义网络已经创建成功了。
-	![](.\img\24.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/24.png)
 
 5. 在两个窗口创建 u1,u2 容器网络：
    	```
@@ -230,14 +240,14 @@ services:
 	docker info
 	```
 
-	![](.\img\26.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/26.png)
 
 	```
 	docker network connect bridge u1
 	docker network disconnect mynet u1
   	```
    
-	![](.\img\27.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/27.png)
 	可以看到u1已经被从网络`mynet`删除了。
 
 ### Docker 仓库（Registry）
@@ -249,7 +259,7 @@ services:
    
    `docker run -d -p 5000:5000 --restart=always --name registry registry:2`  
 
-   ![](.\img\28.png)
+   ![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/28.png)
 
 2. 从Docker Hub 复制一个**镜像**到仓库中
 
@@ -257,7 +267,7 @@ services:
 	```
   	docker pull ubuntu:16.04
 	```
-	![](.\img\29.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/29.png)
    - 标记该镜像为`localhost:5000/my-ubuntu`，当标记第一部分为主机名和端口时，docker将它们视为push时仓库的地址。
     ```
   	docker tag ubuntu:16.04 localhost:5000/my-ubuntu
@@ -267,21 +277,21 @@ services:
 	```
 	docker push localhost:5000/my-ubuntu
 	```
-	![](.\img\30.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/30.png)
 	- 删除本地缓存的`ubuntu:16.04` 和 `localhost:5000/my-ubuntu`镜像，以测试从仓库中pull镜像。这些操作不回移除仓库中的`localhost:5000/my-ubuntu`镜像。
 	```
 	sudo docker image remove ubuntu:16.04
 	sudo docker image remove localhost:5000/my-ubuntu  
 	```
 
-	![](.\img\31.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/31.png)
 
 	- 从本地仓库拉取镜像`localhost:5000/my-ubuntu`
 	```
 	sudo docker pull localhost:5000/my-ubuntu
 	```
 
-	![](.\img\32.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/32.png)
 
 3. 停用本地仓库
 	停用仓库使用命令`docker container stop`，例如
@@ -301,24 +311,24 @@ services:
 	
 	开通**容器镜像服务**：设置registry密码
 	
-	![](.\img\33.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/33.png)
 	
 	创建镜像仓库的命名空间
 
-	![](.\img\35.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/35.png)
 
 	创建镜像仓库
 
-	![](.\img\36.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/36.png)
 
 	选择代码源为本地仓库
 
-	![](.\img\37.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/37.png)
 
 
 2. 测试上传`hello-world`镜像  
 	- 登陆：`sudo docker login --username=卷耳多多多 registry.cn-shenzhen.aliyuncs.com`
-	![](.\img\34.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/34.png)
     
 
 	- 标签：`sudo docker tag hello-world registry.cn-shenzhen.aliyuncs.com/gail/repo:hello-world`  
@@ -327,31 +337,31 @@ services:
 		`sudo docker run hello-world`
 
 	- 上传：`sudo docker push registry.cn-shenzhen.aliyuncs.com/gail/repo:hello-world`
-		![](.\img\38.png)
+		![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/38.png)
 
 		这时在阿里云仓库上可以看到上传的镜像：
 		
-		![](.\img\39.png)
+		![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/39.png)
 	- 下载：`sudo docker pull registry.cn-shenzhen.aliyuncs.com/gail/repo:hello-world`  
-	![](.\img\40.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/40.png)
 
 	下载成功后可以看到本地镜像多了registry.cn-shenzhen.aliyuncs.com/gail/repo:hello-world
 
-	![](.\img\41.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/41.png)
 
 	- 删除：`sudo docker rmi registry.cn-shenzhen.aliyuncs.com/gail/repo:hello-world`  
 
 	删除成功后可以看到本地镜像少了registry.cn-shenzhen.aliyuncs.com/gail/repo:hello-world
 
-	![](.\img\42.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/42.png)
 	
 	- 运行：`sudo docker run --rm registry.cn-shenzhen.aliyuncs.com/gail/repo:hello-world`
 
-	![](.\img\43.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/43.png)
 	
 
 	- 退出：`sudo docker logout registry.cn-shenzhen.aliyuncs.com`  
 
-	![](.\img\44.png)
+	![](https://gitee.com/li-jia666/service-computing/raw/master/Containerization/img/44.png)
 
 	
