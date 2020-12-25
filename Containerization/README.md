@@ -37,7 +37,6 @@
 - `栈`（Stack）/ `命名空间`（Namaspace） / `应用`（Application）  
 被编排的、可伸缩的一组`相互依赖的服务`，构成的一个`应用`  
   
-https://gitee.com/li-jia666/service-computing/raw/master/Containerization/
 
 ## 实验过程
 
